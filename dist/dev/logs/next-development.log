@@ -1,0 +1,18 @@
+[00:00:02.113] Server  LOG     ✓ Ready in 1447ms
+[00:00:05.257] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:00:27.676] Server  LOG     ✓ Compiled in 699ms
+[00:01:30.277] Server  LOG     ✓ Compiled in 2.2s
+[00:02:02.871] Server  LOG     ✓ Compiled in 241ms
+[00:02:24.943] Server  LOG     ✓ Compiled in 490ms
+[00:02:48.054] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:03:30.609] Server  LOG     ✓ Compiled in 373ms
+[00:03:52.166] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:04:28.771] Server  LOG     ✓ Compiled in 229ms
+[00:04:41.573] Server  LOG     ✓ Compiled in 209ms
+[00:04:43.549] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:04:44.350] Browser ERROR   uncaughtError: Error: Module [project]/node_modules/lucide-react/dist/esm/icons/shopping-cart.js [app-client] (ecmascript) <export default as ShoppingCart> was instantiated because it was required from module [project]/src/app/components/MenuCard.tsx [app-client] (ecmascript), but the module factory is not available. It might have been deleted in an HMR update.
+[00:04:55.338] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:05:26.220] Server  LOG     ✓ Compiled in 10.1s
+[00:06:28.777] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:07:50.531] Server  LOG     ✓ Compiled in 260ms
+[00:08:38.815] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
