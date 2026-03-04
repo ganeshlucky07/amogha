@@ -36,13 +36,21 @@ export function MenuCard({ item, variant = "default" }: MenuCardProps) {
         <div className="absolute top-0 right-0 w-16 h-16 bg-gradient-to-bl from-rose-200/50 to-transparent rounded-bl-full" />
         
         <div className="h-28 bg-gradient-to-br from-rose-50 via-pink-50 to-amber-50 flex items-center justify-center relative overflow-hidden">
-          <motion.span 
-            className="text-5xl"
-            whileHover={{ scale: 1.2, rotate: [0, -10, 10, 0] }}
-            transition={{ duration: 0.5 }}
-          >
-            🍰
-          </motion.span>
+          {item.image ? (
+            <img
+              src={item.image}
+              alt={item.name}
+              className="w-full h-full object-cover"
+            />
+          ) : (
+            <motion.span 
+              className="text-5xl"
+              whileHover={{ scale: 1.2, rotate: [0, -10, 10, 0] }}
+              transition={{ duration: 0.5 }}
+            >
+              🍰
+            </motion.span>
+          )}
           {/* Sparkle effects */}
           <motion.div
             animate={{ opacity: [0, 1, 0], scale: [0.5, 1, 0.5] }}
@@ -105,11 +113,15 @@ export function MenuCard({ item, variant = "default" }: MenuCardProps) {
         
         <div className="flex items-start gap-4 relative z-10">
           <motion.div 
-            className="w-16 h-16 bg-gradient-to-br from-amber-200 to-orange-200 rounded-2xl flex items-center justify-center text-3xl flex-shrink-0 shadow-inner"
+            className="w-16 h-16 bg-gradient-to-br from-amber-200 to-orange-200 rounded-2xl flex items-center justify-center text-3xl flex-shrink-0 shadow-inner overflow-hidden"
             whileHover={{ rotate: 360, scale: 1.1 }}
             transition={{ duration: 0.6 }}
           >
-            🍪
+            {item.image ? (
+              <img src={item.image} alt={item.name} className="w-full h-full object-cover" />
+            ) : (
+              "🍪"
+            )}
           </motion.div>
           <div className="flex-1">
             <div className="flex items-start justify-between mb-1">
@@ -163,17 +175,28 @@ export function MenuCard({ item, variant = "default" }: MenuCardProps) {
     );
   }
 
-  // Default variant with glassmorphism
+  // Default variant with glassmorphism and image support
   return (
     <motion.div
       whileHover={{ y: -8, scale: 1.02 }}
       transition={{ duration: 0.2 }}
-      className="bg-white/70 backdrop-blur-md rounded-2xl p-5 shadow-lg border border-white/50 hover:border-amber-200/50 hover:shadow-xl transition-all relative overflow-hidden group"
+      className="bg-white/70 backdrop-blur-md rounded-2xl overflow-hidden shadow-lg border border-white/50 hover:border-amber-200/50 hover:shadow-xl transition-all relative group"
     >
+      {/* Image area for default items */}
+      {item.image && (
+        <div className="h-28 overflow-hidden">
+          <img 
+            src={item.image} 
+            alt={item.name} 
+            className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+          />
+        </div>
+      )}
+      
       {/* Subtle gradient overlay on hover */}
       <div className="absolute inset-0 bg-gradient-to-br from-amber-50/0 to-orange-50/0 group-hover:from-amber-50/50 group-hover:to-orange-50/50 transition-all duration-300" />
       
-      <div className="relative z-10">
+      <div className={`relative z-10 ${item.image ? 'p-4' : 'p-5'}`}>
         <div className="flex items-start justify-between mb-2">
           <h3 className="font-bold text-gray-800 text-lg">{item.name}</h3>
           <VegBadge isVeg={item.isVeg} />

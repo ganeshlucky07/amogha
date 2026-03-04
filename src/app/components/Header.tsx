@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { Clock, MapPin, ShoppingCart } from "lucide-react";
 import { useCart } from "../CartContext";
 import { AnimatedLogo } from "./AnimatedLogo";
+import { SHOP_INFO } from "../data";
 
 export function Header() {
   const { totalItems, setIsOpen } = useCart();
@@ -58,11 +59,18 @@ export function Header() {
             transition={{ duration: 0.6, delay: 0.1 }}
             className="flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-6 text-sm"
           >
-            {/* Location Badge */}
-            <div className="flex items-center gap-2 bg-white/20 backdrop-blur-sm px-3 py-1.5 rounded-full">
+            {/* Location Badge - Clickable */}
+            <motion.a
+              href={SHOP_INFO.googleMapsUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className="flex items-center gap-2 bg-white/20 backdrop-blur-sm px-3 py-1.5 rounded-full cursor-pointer hover:bg-white/30 transition-colors"
+            >
               <MapPin className="w-4 h-4" />
               <span>Jodimetla, Pocharam</span>
-            </div>
+            </motion.a>
             
             {/* Hours Badge */}
             <div className="flex items-center gap-2 bg-white/20 backdrop-blur-sm px-3 py-1.5 rounded-full">
