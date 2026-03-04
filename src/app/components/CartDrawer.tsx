@@ -150,7 +150,7 @@ export function CartDrawer() {
                   </motion.button>
 
                   <p className="text-xs text-center text-gray-400">
-                    Choose Zomato or Swiggy on next step
+                    Choose Swiggy or WhatsApp on next step
                   </p>
                 </div>
               )}
