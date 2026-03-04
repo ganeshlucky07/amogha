@@ -20,7 +20,7 @@ export function PlatformSelector({ isOpen, onClose }: PlatformSelectorProps) {
     .map((item) => `${item.name} x${item.quantity} - ₹${item.price * item.quantity}`)
     .join("\n");
 
-  const fullOrderText = `Order from Amogha Sweets and Bakers\n\n${orderSummary}\n\nTotal: ₹${totalPrice}`;
+  const fullOrderText = `Order from ${SHOP_INFO.name}\n\n${orderSummary}\n\nTotal: ₹${totalPrice}`;
 
   const handleCopyOrder = async () => {
     await navigator.clipboard.writeText(fullOrderText);
@@ -35,7 +35,7 @@ export function PlatformSelector({ isOpen, onClose }: PlatformSelectorProps) {
   };
 
   const handleWhatsAppClick = () => {
-    const message = `Hi! I'd like to place an order from Amogha Sweets and Bakers:\n\n${orderSummary}\n\nTotal: ₹${totalPrice}`;
+    const message = `Hi! I'd like to place an order from ${SHOP_INFO.name}:\n\n${orderSummary}\n\nTotal: ₹${totalPrice}`;
     const whatsappUrl = `https://wa.me/${SHOP_INFO.whatsappNumber.replace(/\+/g, "")}?text=${encodeURIComponent(message)}`;
     window.open(whatsappUrl, "_blank");
     clearCart();

@@ -14,11 +14,11 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Amogha Sweets and Bakers | Jodimetla, Hyderabad",
+  title: "Pure Ghee sweets and Bakers | Jodimetla, Hyderabad",
   description: "Fresh bakery items, pizzas, burgers, snacks, Hyderabadi Osmania biscuits, pastries and cakes. Order now for delicious treats!",
   keywords: "bakery, sweets, pizza, burgers, Osmania biscuits, Hyderabad, Jodimetla, Pocharam, pastries, cakes",
   openGraph: {
-    title: "Amogha Sweets and Bakers",
+    title: "Pure Ghee sweets and Bakers",
     description: "Fresh • Delicious • Hyderabadi Special - Order Now!",
     type: "website",
   },
