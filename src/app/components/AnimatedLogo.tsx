@@ -1,8 +1,14 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { SHOP_INFO } from "../data";
 
 export function AnimatedLogo() {
+  // Split name for display: "Amogha" as main, rest as subtitle
+  const nameParts = SHOP_INFO.name.split(" ");
+  const mainName = nameParts[0]; // "Amogha"
+  const subName = nameParts.slice(1).join(" "); // "Pure Ghee Sweets & Bakers"
+
   return (
     <div className="relative flex items-center gap-3">
       {/* Animated Sweet Icon */}
@@ -63,15 +69,15 @@ export function AnimatedLogo() {
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.5 }}
         >
-          Amogha
+          {mainName}
         </motion.span>
         <motion.span 
-          className="text-xs md:text-sm text-white/80 tracking-widest uppercase"
+          className="text-[10px] md:text-xs text-white/80 tracking-wider uppercase leading-tight"
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.5, delay: 0.1 }}
         >
-          Sweets & Bakers
+          {subName}
         </motion.span>
       </div>
     </div>
