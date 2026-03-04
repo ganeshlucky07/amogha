@@ -1246,7 +1246,7 @@ export const menuItems: MenuItem[] = [
 ];
 
 export const SHOP_INFO = {
-  name: "Amogha Sweets and Bakers",
+  name: "Pure Ghee sweets and Bakers",
   tagline: "Fresh • Delicious • Hyderabadi Special",
   address: "Jodimetla, Pocharam, Hyderabad",
   plusCode: "CJFW+X4X Hyderabad",
