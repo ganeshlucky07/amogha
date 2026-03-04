@@ -34,6 +34,10 @@ function HomeContent() {
   const biscuits = filteredItems.filter((item) => item.category === "biscuits");
   const pastries = filteredItems.filter((item) => item.category === "pastries");
   const cakes = filteredItems.filter((item) => item.category === "cakes");
+  const sweets = filteredItems.filter((item) => item.category === "sweets");
+  const namkeens = filteredItems.filter((item) => item.category === "namkeens");
+  const hotdogs = filteredItems.filter((item) => item.category === "hotdogs");
+  const sandwiches = filteredItems.filter((item) => item.category === "sandwiches");
 
   return (
     <main className="min-h-screen bg-gradient-to-b from-amber-50 via-white to-rose-50 relative">
@@ -45,6 +49,24 @@ function HomeContent() {
 
         {priceFilter === "all" ? (
           <>
+            {sweets.length > 0 && (
+              <MenuSection
+                id="sweets"
+                title="Sweets"
+                icon="🍬"
+                items={sweets}
+                color="rose"
+              />
+            )}
+            {namkeens.length > 0 && (
+              <MenuSection
+                id="namkeens"
+                title="Namkeens"
+                icon="🥜"
+                items={namkeens}
+                color="amber"
+              />
+            )}
             {pizzas.length > 0 && (
               <MenuSection
                 id="pizza"
@@ -60,6 +82,24 @@ function HomeContent() {
                 title="Burgers"
                 icon="🍔"
                 items={burgers}
+                color="gray"
+              />
+            )}
+            {hotdogs.length > 0 && (
+              <MenuSection
+                id="hotdogs"
+                title="Hot Dogs"
+                icon="🌭"
+                items={hotdogs}
+                color="amber"
+              />
+            )}
+            {sandwiches.length > 0 && (
+              <MenuSection
+                id="sandwiches"
+                title="Sandwiches"
+                icon="🥪"
+                items={sandwiches}
                 color="gray"
               />
             )}
