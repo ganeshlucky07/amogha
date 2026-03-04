@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useCallback, memo } from "react";
 import { motion } from "framer-motion";
 import { ShoppingBag, Heart } from "lucide-react";
 import { menuItems, SHOP_INFO } from "./data";
@@ -134,29 +134,7 @@ function HomeContent() {
             )}
           </>
         ) : (
-          <section className="py-12 bg-white/50 backdrop-blur-sm">
-            <div className="max-w-6xl mx-auto px-4">
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                className="text-center mb-8"
-              >
-                <h2 className="text-2xl font-bold text-gray-800 mb-2">
-                  Items Under ₹100
-                </h2>
-                <p className="text-gray-600">
-                  Quick bites and treats that won&apos;t break the bank!
-                </p>
-              </motion.div>
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-                {filteredItems.map((item) => (
-                  <div key={item.id}>
-                    <MenuCard item={item} />
-                  </div>
-                ))}
-              </div>
-            </div>
-          </section>
+          <Under100Section filteredItems={filteredItems} />
         )}
 
         <LocationSection />
@@ -211,6 +189,56 @@ function HomeContent() {
     </main>
   );
 }
+
+// Optimized Under100Section with chunked rendering for mobile performance
+interface Under100SectionProps {
+  filteredItems: typeof menuItems;
+}
+
+const Under100Section = memo(function Under100Section({ filteredItems }: Under100SectionProps) {
+  const [visibleCount, setVisibleCount] = useState(12);
+  
+  // Show 12 items initially, load more on scroll for mobile performance
+  const visibleItems = filteredItems.slice(0, visibleCount);
+  const hasMore = visibleCount < filteredItems.length;
+  
+  const loadMore = useCallback(() => {
+    setVisibleCount(prev => Math.min(prev + 12, filteredItems.length));
+  }, [filteredItems.length]);
+
+  return (
+    <section className="py-12 bg-white/50 backdrop-blur-sm">
+      <div className="max-w-6xl mx-auto px-4">
+        <div className="text-center mb-8">
+          <h2 className="text-2xl font-bold text-gray-800 mb-2">
+            Items Under ₹100
+          </h2>
+          <p className="text-gray-600">
+            Quick bites and treats that won&apos;t break the bank!
+          </p>
+          <p className="text-sm text-gray-500 mt-2">
+            Showing {visibleItems.length} of {filteredItems.length} items
+          </p>
+        </div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+          {visibleItems.map((item) => (
+            <MenuCard key={item.id} item={item} />
+          ))}
+        </div>
+        {hasMore && (
+          <div className="mt-8 text-center">
+            <button
+              onClick={loadMore}
+              className="bg-amber-500 text-white px-6 py-3 rounded-xl font-bold shadow-lg hover:bg-amber-600 active:scale-95 transition-all"
+            >
+              Load More ({filteredItems.length - visibleCount} remaining)
+            </button>
+          </div>
+        )}
+      </div>
+    </section>
+  );
+});
 
 export default function Home() {
   return (
