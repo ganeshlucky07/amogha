@@ -190,48 +190,141 @@ function HomeContent() {
   );
 }
 
-// Optimized Under100Section with chunked rendering for mobile performance
+// Optimized Under100Section with category filtering for mobile performance
 interface Under100SectionProps {
   filteredItems: typeof menuItems;
 }
 
+const categoryIcons: Record<string, string> = {
+  sweets: "🍬",
+  namkeens: "🥜",
+  pizza: "🍕",
+  burgers: "🍔",
+  hotdogs: "🌭",
+  sandwiches: "🥪",
+  snacks: "🍢",
+  puffs: "🥐",
+  biscuits: "🍪",
+  pastries: "🍰",
+  cakes: "🎂",
+};
+
+const categoryNames: Record<string, string> = {
+  sweets: "Sweets",
+  namkeens: "Namkeens",
+  pizza: "Pizza",
+  burgers: "Burgers",
+  hotdogs: "Hot Dogs",
+  sandwiches: "Sandwiches",
+  snacks: "Chat & Snacks",
+  puffs: "Puffs",
+  biscuits: "Biscuits",
+  pastries: "Pastries",
+  cakes: "Cakes",
+};
+
 const Under100Section = memo(function Under100Section({ filteredItems }: Under100SectionProps) {
   const [visibleCount, setVisibleCount] = useState(12);
+  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   
-  // Show 12 items initially, load more on scroll for mobile performance
-  const visibleItems = filteredItems.slice(0, visibleCount);
-  const hasMore = visibleCount < filteredItems.length;
+  // Get categories that have items under 100
+  const availableCategories = useMemo(() => {
+    const cats = new Set(filteredItems.map(item => item.category));
+    return Array.from(cats).sort();
+  }, [filteredItems]);
+  
+  // Filter items by selected category
+  const displayItems = useMemo(() => {
+    let items = filteredItems;
+    if (selectedCategory) {
+      items = items.filter(item => item.category === selectedCategory);
+    }
+    return items;
+  }, [filteredItems, selectedCategory]);
+  
+  // Show 12 items initially
+  const visibleItems = displayItems.slice(0, visibleCount);
+  const hasMore = visibleCount < displayItems.length;
   
   const loadMore = useCallback(() => {
-    setVisibleCount(prev => Math.min(prev + 12, filteredItems.length));
-  }, [filteredItems.length]);
+    setVisibleCount(prev => Math.min(prev + 12, displayItems.length));
+  }, [displayItems.length]);
+  
+  const handleCategoryChange = useCallback((category: string | null) => {
+    setSelectedCategory(category);
+    setVisibleCount(12); // Reset visible count when changing filter
+  }, []);
 
   return (
     <section className="py-12 bg-white/50 backdrop-blur-sm">
       <div className="max-w-6xl mx-auto px-4">
-        <div className="text-center mb-8">
+        <div className="text-center mb-6">
           <h2 className="text-2xl font-bold text-gray-800 mb-2">
             Items Under ₹100
           </h2>
           <p className="text-gray-600">
             Quick bites and treats that won&apos;t break the bank!
           </p>
-          <p className="text-sm text-gray-500 mt-2">
-            Showing {visibleItems.length} of {filteredItems.length} items
-          </p>
         </div>
+        
+        {/* Category Filter */}
+        <div className="mb-6">
+          <div className="flex items-center justify-center gap-2 flex-wrap">
+            <button
+              onClick={() => handleCategoryChange(null)}
+              className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
+                selectedCategory === null
+                  ? "bg-amber-500 text-white shadow-md"
+                  : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+              }`}
+            >
+              All ({filteredItems.length})
+            </button>
+            {availableCategories.map((cat) => {
+              const count = filteredItems.filter(item => item.category === cat).length;
+              return (
+                <button
+                  key={cat}
+                  onClick={() => handleCategoryChange(cat)}
+                  className={`px-4 py-2 rounded-full text-sm font-medium transition-all flex items-center gap-1 ${
+                    selectedCategory === cat
+                      ? "bg-amber-500 text-white shadow-md"
+                      : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+                  }`}
+                >
+                  <span>{categoryIcons[cat] || "🍽️"}</span>
+                  <span>{categoryNames[cat] || cat}</span>
+                  <span className="text-xs opacity-80">({count})</span>
+                </button>
+              );
+            })}
+          </div>
+        </div>
+        
+        <p className="text-sm text-gray-500 text-center mb-4">
+          Showing {visibleItems.length} of {displayItems.length} items
+          {selectedCategory && ` in ${categoryNames[selectedCategory]}`}
+        </p>
+        
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
           {visibleItems.map((item) => (
             <MenuCard key={item.id} item={item} />
           ))}
         </div>
+        
+        {visibleItems.length === 0 && (
+          <div className="text-center py-12">
+            <p className="text-gray-500">No items found in this category under ₹100</p>
+          </div>
+        )}
+        
         {hasMore && (
           <div className="mt-8 text-center">
             <button
               onClick={loadMore}
               className="bg-amber-500 text-white px-6 py-3 rounded-xl font-bold shadow-lg hover:bg-amber-600 active:scale-95 transition-all"
             >
-              Load More ({filteredItems.length - visibleCount} remaining)
+              Load More ({displayItems.length - visibleCount} remaining)
             </button>
           </div>
         )}
