@@ -75,7 +75,7 @@ export function Header() {
             {/* Hours Badge */}
             <div className="flex items-center gap-2 bg-white/20 backdrop-blur-sm px-3 py-1.5 rounded-full">
               <Clock className="w-4 h-4" />
-              <span>7AM - 10PM</span>
+              <span>{SHOP_INFO.hours}</span>
             </div>
             
             {/* Cart Button with unique styling */}

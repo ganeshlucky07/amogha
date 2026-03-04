@@ -1253,6 +1253,6 @@ export const SHOP_INFO = {
   googleMapsUrl: "https://www.google.com/maps/place/CJFW%2BX4X,+Jodimetla,+Pocharam,+Hyderabad,+Telangana",
   whatsappNumber: "+918886002890",
   phoneNumber: "+918886002890",
-  hours: "9:00 AM - 11:00 AM",
+  hours: "9:00 AM - 11:00 PM",
   email: "amoghasweets@gmail.com",
 } as const;
